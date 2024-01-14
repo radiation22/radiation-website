@@ -1,0 +1,107 @@
+<link rel="shortcut icon" href="../assets/images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+<link href="Content/csse410.css?v=_P8rIHOZtBCpKaO-McTryjIVWSohu0n159jgCBr62mo1" rel="stylesheet"/>
+<script src="Scripts/kendo.aspnetmvc.min.js"></script>
+<title>Sign Up - Inceptive Designs</title>
+<div class="cheader">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="navbar-header">
+                <a href="../index.html" title=""><img src="../assets/images/crm-logo.png" width="220" height="40" class="img-responsive" alt="" /></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="whitebg center_cont">
+    <div id="signin" class="signin">
+        <h4>Sign up</h4>
+        <p>Create new account</p>
+        <div id="messages"></div>
+        <form action="https://www.inceptivedesigns.com/account/Signup" class="jform" method="post">
+            <input Name="path" id="ReturnUrl" name="ReturnUrl" type="hidden" value="" /><input id="csf" name="csf" type="hidden" value="100" /><input id="pth" name="pth" type="hidden" value="https://www.inceptivedesigns.com/Signup" /><input id="ft" name="ft" type="hidden" value="3" />            
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="field"><input type="text" placeholder="Full Name" name="cn" class="required" maxlength="70"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="field"><input type="email" placeholder="Email Address" name="ce" class="required email" maxlength="254"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="field"><input type="password" placeholder="Password" name="pw" class="required" minlength="8" maxlength="16"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="field"><select class="countrylist required" id="pc" name="pc"></select> </div>
+                </div>
+                <input type="hidden" name="ctry" value="Thailand">
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-xs-12">
+                    <input name="cpcode" disabled="" type="text">
+                </div>
+                <div class="col-md-8 col-xs-12">
+                    <div class="field">
+                        <input type="text" name="cp" class="required number" placeholder="Phone Number" minlength="7" maxlength="13">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" class="btn" value="Sign up" />
+                <div class="clearfix"></div>
+                <div class="text-center mt20"><a href="Signin/index.html">Already signed up?</a></div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+    
+        var ctrycode = 1; //------------------------------Change Country Code here if required.
+    
+        $.ajax({
+            type: "GET", url: "countrylist.xml", dataType: "xml", success: function (xml) {
+                $(xml)
+                    .find('country')
+                    .each(function () {
+                        var name = $(this).find('name').text();
+                        var abbr = $(this).find('abbr').text();
+                        var code = $(this).find('code').text();
+                        $('.jform select.countrylist')
+                            .append('<option value="' + code + '" data-abbr="' + abbr + '">' + name + '</option>');
+                        $('.jform select.countrylist option[value="' + ctrycode + '"]').attr('selected', 'selected');
+                        $('.jform input[name="cpcode"]').val('+' + ctrycode);
+                        $('.jform input[name="acode"]').val('+' + ctrycode);
+                        $('.jform input[name="ctry"]').val($('.jform select.countrylist option:selected').html())
+                    });
+            }
+        });
+    
+        // Code change on select
+    
+        $('.jform select.countrylist[name="pc"]').each(function () {
+            var id = $(this).parents('.jform').parent().attr('id');
+            $(this).bind('change', function () {
+                var cval = $(this).children('option:selected').attr('value');
+                cnam = $(this).children('option:selected').html();
+                //  console.log(cval);
+                $('.jform input[name="cpcode"]').val('+' + cval);
+                $('.jform input[name="ctry"]').val(cnam);
+            });
+    
+    
+        });
+    
+    
+    });
+    
+    function onAdditionalData() {
+        return {
+            term: $("#VisitorIpAddress").val()
+        };
+    }
+</script>

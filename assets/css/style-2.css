@@ -1,0 +1,12 @@
+.abel.client-slider-v1-wrapper{background: none;border: 0;text-align: left;}
+.abel.client-slider-v1-wrapper .cole{border: 1px solid #dedede;box-shadow: none;}
+.abel #client-slider-v1 .carousel-indicators .active{width: 20%; height: auto; background: none; float: left; opacity: 1;}
+.abel #client-slider-v1 .carousel-indicators li{width: 20%; height: auto; margin: 0; float: left;opacity:0.5;}
+.abel #client-slider-v1 .carousel-indicators li img{box-shadow: 0 0 20px 0 #ccc}
+.abel .carousel-indicators{width: 100%;left: 0;right: 0!important;margin: 0 auto;bottom: -220px!important;}
+.abel #client-slider-v1 .carousel-control.right {right: -110px;bottom: -155px;}
+.abel #client-slider-v1 .carousel-control.left{left: -70px;bottom: -155px;}
+.abel #client-slider-v1 .carousel-control i{color: #000;border-color: #000;}
+
+/*.lp-ecommerce .abel.client-slider-v1-wrapper{margin-top:0px;}
+.lp-travel .abel.client-slider-v1-wrapper{margin-top:50px;}*/

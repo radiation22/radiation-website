@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Form</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form id="myForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" />
+
+        <label for="image">Image URL:</label>
+        <input type="text" id="image" name="image" />
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea>
+
+        <label for="link">Button Link:</label>
+        <input type="text" id="linkBtn" name="link" />
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('myForm');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const title = document.getElementById('title').value;
+                const image = document.getElementById('image').value;
+                const link = document.getElementById('linkBtn').value;
+                const description = document.getElementById('description').value;
+
+                // You can now send the input values to your Node.js Express server using fetch or XMLHttpRequest
+                // Example using fetch:
+                fetch('https://radiation-server.vercel.app/addBlog', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ title, image, description, link }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Server response:', data);
+                        Toastify({
+                            text: "Added successfully. ",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "left",
+                            style: {
+                                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                            },
+                            onClick: function () {
+                                // Callback function after click
+                            }
+                        }).showToast();
+
+                        // Reset the form after successful submission
+                        form.reset();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+
+                        Toastify({
+                            text: "Error submitting form. Please try again.",
+                            duration: 3000,
+                            gravity: "top",
+                            position: "left",
+                            style: {
+                                background: "linear-gradient(to right, #ff4b2b, #ff416c)",
+                            },
+                            onClick: function () {
+                                // Callback function after click
+                            }
+                        }).showToast();
+
+                    });
+            });
+        });
+    </script>
+</body>
+
+</html>
